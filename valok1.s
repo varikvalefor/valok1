@@ -91,16 +91,3 @@ vfreeA_l:
 	ble	a1,	a3,	vfreeA_l
 
 	ret
-
-
-bunp:
-	li	t0,	4
-	mul	t1,	a0,	t0
-	add	t1,	t1,	a1
-	addi	t0,	a1,	4
-fwj:
-	addi	t0,	t0,	4
-	sw	t0,	(t0)
-	blt	t0,	t1,	fwj
-
-	ret
