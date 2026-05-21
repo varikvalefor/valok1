@@ -12,15 +12,15 @@ valok:
 	lw	a2,	heap
 valok_l:
 	lw	a1,	memSize
-	
+
 	lw	a3,	(a2)
 	beqz	a3,	valok_pilnoC
-	
+
 	mul	a3,	a3,	a1
-	
+
 	add	a3,	a3,	a1
 	add	a2,	a2,	a3
-	
+
 	j valok_l
 
 # ni'o pruce fi zo'e poi ke'a na srana lo se baitni be ko'a goi lo se judri be la'oi .a0.
@@ -32,10 +32,10 @@ valok_pilnoC_cipra:
 	bnez	t2,	valok_l
 	add	t0,	t0,	a1	# judri ningau pe'a
 	ble	t0,	t1,	valok_pilnoC_cipra
-	
+
 	sw	a0,	(a2)
 	mv	a1,	a2
-	
+
 	ret
 
 # let the music move you
@@ -55,12 +55,12 @@ vfree_l:
 	sw	x0,	(a0)
 	add	a0,	a0,	a1
 	ble	a0,	a2,	vfree_l
-	
+
 	add	a1,	a2,	a1
 	mv	a0,	a3
-	
+
 	jal vfreeA
-	
+
 	ret
 # let the music move you
 # baby, you and me
@@ -102,5 +102,5 @@ fwj:
 	addi	t0,	t0,	4
 	sw	t0,	(t0)
 	blt	t0,	t1,	fwj
-	
+
 	ret
