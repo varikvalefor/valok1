@@ -70,17 +70,18 @@ vfreeA:
 	# a2 - judri co tolci'o co me'oi .a1.
 	# a3 - traji co me'oi .a1.
 	# a4 - judri ni barda
-	# t0 - nijudri ni barda
-	# t1 - traji co me'oi .a1.
+	# t0 - judri ni barda
 	mv	a2,	a1
 	bnez	a3,	vfreeA_1
 	ret
 vfreeA_1:
 	lw	t0,	memSize
+vfreeA_t0:
 	lw	a3,	(a1)
 	sw	x0,	(a1)
 	sw	a3,	(a0)
 	mul	a3,	a3,	t0
+	mul	a3,	a3,	t0 # .i srana lo se baitni co'e
 	add	a3,	a3,	a1
 vfreeA_l:
 	add	a0,	a0,	t0
@@ -89,5 +90,8 @@ vfreeA_l:
 	sw	x0,	(a1)
 	sw	t1,	(a0)
 	ble	a1,	a3,	vfreeA_l
+
+	lw	t1,	(a1)
+	bnez	t1,	vfreeA_t0
 
 	ret
