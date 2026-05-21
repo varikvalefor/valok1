@@ -38,12 +38,16 @@ valok_pilnoC_cipra:
 	
 	ret
 
+# let the music move you
+# (lym
 vfree:
 	# a0 - cJudri
 	# a1 - memSize
 	# a2 - max
+	# a3 - pamoi
 	lw	a1,	memSize
 	lw	a2,	(a0)
+	mv	a3,	a0
 
 	mul	a2,	a2,	a1
 	add	a2,	a2,	a0
@@ -51,5 +55,52 @@ vfree_l:
 	sw	x0,	(a0)
 	add	a0,	a0,	a1
 	ble	a0,	a2,	vfree_l
+	
+	add	a1,	a2,	a1
+	mv	a0,	a3
+	
+	jal vfreeA
+	
+	ret
+# let the music move you
+# baby, you and me
+
+# a1 -> a0
+vfreeA:
+	# a2 - judri co tolci'o co me'oi .a1.
+	# a3 - traji co me'oi .a1.
+	# a4 - judri ni barda
+	# t0 - nijudri ni barda
+	# t1 - traji co me'oi .a1.
+	mv	a2,	a1
+	bnez	a3,	vfreeA_1
+	ret
+vfreeA_1:
+	lw	t0,	memSize
+	lw	a3,	(a1)
+	sw	x0,	(a1)
+	sw	a3,	(a0)
+	mul	a3,	a3,	t0
+	add	a3,	a3,	a1
+vfreeA_l:
+	add	a0,	a0,	t0
+	add	a1,	a1,	t0
+	lw	t1,	(a1)
+	sw	x0,	(a1)
+	sw	t1,	(a0)
+	ble	a1,	a3,	vfreeA_l
+
+	ret
+
+
+bunp:
+	li	t0,	4
+	mul	t1,	a0,	t0
+	add	t1,	t1,	a1
+	addi	t0,	a1,	4
+fwj:
+	addi	t0,	t0,	4
+	sw	t0,	(t0)
+	blt	t0,	t1,	fwj
 	
 	ret
